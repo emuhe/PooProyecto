@@ -16,10 +16,10 @@ public class Juego {
         jugadores.add(nuevoJugador);
     }
     public int obtenerValorInicio(){
-        return lineajuego.getFirst().getLado1();
+        return lineajuego.get(0).getLado1();
     }
     public int obtenerValorFinal(){
-        return lineajuego.getLast().getLado2();
+        return lineajuego.get(lineajuego.size() - 1).getLado2();
     }
     public void mostrarLinea(){
         for(int i = 0; i < lineajuego.size();i++){
