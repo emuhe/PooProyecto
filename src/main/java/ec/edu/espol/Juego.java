@@ -51,7 +51,7 @@ public class Juego {
                     valor1 = scanner.nextInt();
                     fc.setLado1(valor1);
                     fc.setLado2(obtenerValorInicio());
-                    lineajuego.addFirst(fc);
+                    lineajuego.add(0,fc);
                 }
                 else{ //Se agrega al final
                     System.out.println("Ingrese el valor del lado 2:");
@@ -70,7 +70,7 @@ public class Juego {
                 if (f.getLado1() == obtenerValorFinal()) {
                     lineajuego.add(f);
                 } else if (f.getLado2() == obtenerValorInicio()) {
-                    lineajuego.addFirst(f);
+                    lineajuego.add(0,f);
                 } else {
                     return false;
                 }
@@ -112,7 +112,7 @@ public class Juego {
                 else{
                     fichanueva.setLado2(num2);
                     fichanueva.setLado1(obtenerValorFinal());
-                    lineajuego.addLast(fichanueva);
+                    lineajuego.add(fichanueva);
                     jugadores.get(i_jugador).removerFicha(fichanueva);
                 }
                 return true;
