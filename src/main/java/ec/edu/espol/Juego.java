@@ -82,7 +82,7 @@ public class Juego {
     public boolean Turno(int i_jugador,Scanner scanner){
         System.out.println("\nTurno de " + jugadores.get(i_jugador).getNombre());
         jugadores.get(i_jugador).imprimirMano();
-        System.out.print("\nSeleccione la ficha: (Seleccione entre el 0 y el " + (jugadores.get(i_jugador).getMano().size()-1));
+        System.out.print("\nSeleccione la ficha (Seleccione entre el 0 y el " + (jugadores.get(i_jugador).getMano().size()-1)+ "): ");
         int ind = scanner.nextInt();
         boolean obt = agregarFichaLinea(jugadores.get(i_jugador).getFicha(ind),jugadores.get(i_jugador));
         if(obt) System.out.println("Se agrego la ficha!");
