@@ -44,7 +44,7 @@ public class Juego {
                 fc.setLado2(valor2);
             }
             else{ //Si la linea no esta vacia, se pide que decidan ingresar al inicio o final de la linea
-                System.out.println("Seleccione a que lado quiere agregar:");
+                System.out.println("Seleccione a que lado quiere agregar (Inicio/Final):");
                 String posicion = scanner.nextLine();
                 if(posicion.equals("Inicio")){ //Se agrega al inicio
                     System.out.println("Ingrese el valor del lado 1:");
