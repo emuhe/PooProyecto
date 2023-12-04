@@ -107,7 +107,7 @@ public class Juego {
                        fichanueva.setLado2(obtenerValorInicio());
                        lineajuego.add(0,fichanueva);
                        jugadores.get(i_jugador).removerFicha(fichanueva);
-                       System.out.println(fichanueva.toString());
+                       System.out.println(fichanueva);
                    }
                 else{
                     fichanueva.setLado2(num2);
