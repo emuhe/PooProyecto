@@ -11,6 +11,8 @@ package ec.edu.espol.proyectopoofx;
 import java.util.ArrayList;
 
 public class Jugador {
+    static String NombreJ1;
+    static String NombreJ2;
     private String nombre;
     private ArrayList<Ficha> mano;
 

@@ -9,4 +9,8 @@ public class SecondaryController {
     private void switchToPrimary() throws IOException {
         App.setRoot("primary");
     }
+    @FXML
+    public void initialize(){
+        Jugador jugador_principal = new Jugador("",Utilitaria.crearManoJugador());
+    }
 }
