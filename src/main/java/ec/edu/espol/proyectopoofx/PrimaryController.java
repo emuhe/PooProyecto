@@ -2,18 +2,24 @@ package ec.edu.espol.proyectopoofx;
 
 import java.io.File;
 import java.io.IOException;
-import java.net.URL;
-import java.util.ResourceBundle;
+
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.Timeline;
+import javafx.application.Platform;
+import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.util.Duration;
 
 public class PrimaryController {
 
@@ -31,16 +37,17 @@ public class PrimaryController {
     private CheckBox check_namej1;
 
     @FXML
-    private void switchToSecondary() throws IOException {
+    private void switchToSecondary() throws IOException, InterruptedException {
         String tipoJugador = OpcionesdeJugador.getValue();
+        
         boolean name_exists = false;
         boolean tipe_exists = false;
-        String j1 = J1_name.getText();
-        System.out.println(j1);
-        System.out.println(tipoJugador);
-        
+        String j1 = J1_name.getText();        
         if(!j1.equals("") || check_namej1.isSelected()){
             name_exists = true;
+            if (check_namej1.isSelected()){
+                j1 = "Jugador 1";
+            }
         }
         else{
             check_namej1.setVisible(true);       
@@ -52,6 +59,7 @@ public class PrimaryController {
             tipe_exists = true;
         }
         if(name_exists && tipe_exists){
+            Jugador.NombreJ1 = j1;
             App.setRoot("secondary");
         }
     }
@@ -71,7 +79,6 @@ public class PrimaryController {
 
     @FXML
     private void actualizartext_box(KeyEvent event) {
-        System.out.println("FASFSAD");
         if(check_namej1.isVisible()){
             check_namej1.setVisible(false);
             check_namej1.setSelected(false);

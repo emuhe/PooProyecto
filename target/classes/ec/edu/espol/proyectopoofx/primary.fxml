@@ -39,7 +39,7 @@
    <bottom>
       <VBox alignment="TOP_CENTER" prefHeight="92.0" prefWidth="600.0" BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id="primaryButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onMouseClicked="#switchToSecondary" text="JUGAR" textAlignment="CENTER">
+            <Button fx:id="primaryButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onMouseClicked="#switchToSecondary" stylesheets="@../css/botones.css" text="JUGAR" textAlignment="CENTER">
                <font>
                   <Font size="16.0" />
                </font>
@@ -64,7 +64,7 @@
          <children>
             <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="17.0" prefWidth="117.0" text="Ingrese su nombre" />
             <TextField fx:id="J1_name" onKeyTyped="#actualizartext_box" />
-            <CheckBox fx:id="check_namej1" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="34.0" prefWidth="109.0" text="Seguro que no quiere nombre?" textAlignment="CENTER" wrapText="true">
+            <CheckBox fx:id="check_namej1" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="34.0" prefWidth="109.0" text="Seguro que no quiere nombre?" textAlignment="CENTER" visible="false" wrapText="true">
                <VBox.margin>
                   <Insets left="5.0" />
                </VBox.margin>
