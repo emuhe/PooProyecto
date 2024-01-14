@@ -11,14 +11,14 @@ package ec.edu.espol.proyectopoofx;
 import java.util.ArrayList;
 
 public class Jugador {
-    static String NombreJ1;
-    static String NombreJ2;
     private String nombre;
     private ArrayList<Ficha> mano;
+    private boolean Jreal;
 
-    public Jugador(String n, ArrayList<Ficha> mano){
+    public Jugador(String n, ArrayList<Ficha> mano, boolean tipoj){
         this.nombre = n;
         this.mano = mano;
+        Jreal = tipoj;
     }
     
     public Ficha getFicha(int indice){

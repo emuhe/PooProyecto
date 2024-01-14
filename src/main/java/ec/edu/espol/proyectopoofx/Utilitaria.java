@@ -25,5 +25,8 @@ public class Utilitaria {
         fichas.add(new FichaComodin());
         return fichas; //Genera la mano del jugador
     }
+        public static boolean convertir(String tipoJ){
+        return tipoJ.equals("Jugador");
+        }
 
 }

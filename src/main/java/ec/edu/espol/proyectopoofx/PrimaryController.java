@@ -3,23 +3,17 @@ package ec.edu.espol.proyectopoofx;
 import java.io.File;
 import java.io.IOException;
 
-import javafx.animation.KeyFrame;
-import javafx.animation.KeyValue;
-import javafx.animation.Timeline;
-import javafx.application.Platform;
-import javafx.concurrent.Task;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
-import javafx.scene.control.ProgressBar;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
-import javafx.util.Duration;
 
 public class PrimaryController {
 
@@ -59,7 +53,8 @@ public class PrimaryController {
             tipe_exists = true;
         }
         if(name_exists && tipe_exists){
-            Jugador.NombreJ1 = j1;
+            JuegoFX.NombreJ1 = j1;
+            JuegoFX.tipoj2 = Utilitaria.convertir(tipoJugador);
             App.setRoot("secondary");
         }
     }

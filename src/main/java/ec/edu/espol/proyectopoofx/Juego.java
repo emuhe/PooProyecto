@@ -130,11 +130,5 @@ public class Juego {
             }
         return false;
         }
-    
-    public static ArrayList<String> tipoJugadores(){
-    ArrayList<String> tj = new ArrayList<>();
-    tj.add("Computadora");
-    tj.add("Jugador");
-    return tj;
-    }
+   
 }

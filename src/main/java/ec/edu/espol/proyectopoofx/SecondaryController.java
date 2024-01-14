@@ -11,7 +11,7 @@ public class SecondaryController {
     }
     @FXML
     public void initialize(){
-        Jugador jugador_principal = new Jugador("",Utilitaria.crearManoJugador());
-        System.out.println(Jugador.NombreJ1);
+        JuegoFX Juego_Principal = new JuegoFX();
+        
     }
 }
