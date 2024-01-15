@@ -1,6 +1,7 @@
 package ec.edu.espol.proyectopoofx;
 
 import java.util.ArrayList;
+import javafx.animation.PauseTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Cursor;
@@ -8,16 +9,18 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.ToggleGroup;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import javafx.util.Duration;
 
 public class  SecondaryController {
 
@@ -32,15 +35,27 @@ public class  SecondaryController {
     private Button Tirar;
     JuegoFX Juego_Principal;
     private ImagenesDomino imagenes;
+    private int N_Turno;
     @FXML
-    private FlowPane Tablero_Juego;
+    private HBox Tablero_Juego;
+    @FXML
+    private ScrollPane Panel_scroll;
+    @FXML
+    private Label Fichas_restantes;
+    @FXML
+    private GridPane Menu_player;
+    @FXML
+    private BorderPane Panel_padre;
     
     public void initialize(){
+        N_Turno = 0;
+        Panel_scroll.setHbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
         Tablero = new ArrayList<>();
         imagenes = new ImagenesDomino();
         Mazo_Jugador_Sub = new ArrayList<>();
         Juego_Principal = new JuegoFX();
         Generar_mazo_player1(Juego_Principal.getJugadores().get(0).getMano());
+        Ronda();
     }
     private void Generar_mazo_player1(ArrayList<Ficha> Fichas_Jugador_1){
         ArrayList<VBox>fichas_VBOX = new ArrayList<>();
@@ -89,7 +104,6 @@ public class  SecondaryController {
     @FXML
     private void TirarFicha(ActionEvent event) {
         
-        System.out.println(Integer.toString(seleccionada_lado1)+ " " + Integer.toString(seleccionada_lado2));
         for(VBox hola: Mazo_Jugador_Sub){
             if (hola.equals(ficha_seleccionada)){
                 int indice = Mazo_Jugador_Sub.indexOf(hola);
@@ -167,8 +181,8 @@ public class  SecondaryController {
                             final int mod_lado2 = imagenes.indice_actual(op2_image.getImage());
                             
                             FichaComodin Juan_Pedro =(FichaComodin) Juego_Principal.getJugadores().get(0).getFicha(Juego_Principal.getJugadores().get(0).getMano().size()-1);
-                            Juan_Pedro.setLado1(mod_lado1);
-                            Juan_Pedro.setLado2(mod_lado2);
+                            Juan_Pedro.setLado1(imagenes.indice_a_num(mod_lado1));
+                            Juan_Pedro.setLado2(imagenes.indice_a_num(mod_lado2));
                             
                             dialog.close();
                             TirarFicha(new ActionEvent());
@@ -229,15 +243,18 @@ public class  SecondaryController {
                         confirmado.setOnAction((ActionEvent a) -> {
                             final int mod_lado1 = imagenes.indice_actual(op1_image.getImage());
                             FichaComodin Juan_Pedro =(FichaComodin) Juego_Principal.getJugadores().get(0).getFicha(Juego_Principal.getJugadores().get(0).getMano().size()-1);
-
+                            
                             switch(((RadioButton) tg.getSelectedToggle()).getText()){
                                 case "Izquierda":
                                     Juan_Pedro.setLado1(imagenes.indice_a_num(mod_lado1));
                                     Juan_Pedro.setLado2(Juego_Principal.Valor_Inicial());
+                                    Juan_Pedro.vaInicio = true;
                                     break;
+                                    
                                 case "Derecha":
                                     Juan_Pedro.setLado2(imagenes.indice_a_num(mod_lado1));
                                     Juan_Pedro.setLado1(Juego_Principal.Valor_Final());
+                                    Juan_Pedro.vaInicio = false;
                                     break;
                             }
                             dialog.close();
@@ -251,7 +268,7 @@ public class  SecondaryController {
                     }
                 }
 
-                
+                System.out.println(ficha_seleccionada);
                 
                 switch(Juego_Principal.AgregarFicha(ficha_seleccionada))
                 {
@@ -272,7 +289,29 @@ public class  SecondaryController {
                     case -1:
                         System.out.println("Nada");
                         break;
+                    case 3:
+                        
+                        final int posicion;
+                        final int idk;
+                        if(((FichaComodin) ficha_seleccionada).vaInicio){
+                            posicion = 0;
+                            idk = 1;
+                           
+                        }
+                        else {posicion = 1;
+                            idk = 0;
+                        }
+                        Juego_Principal.AgregarFicha(ficha_seleccionada, posicion);
+                        Generar_ficha_juego(ficha_seleccionada,idk);
+                        Mazo_Jugador.getChildren().remove(hola);
+                        Mazo_Jugador_Sub.remove(hola);
+                        Juego_Principal.getJugadores().get(0).getMano().remove(ficha_seleccionada);
+                        break;
+
                 }
+                
+                System.out.println("-------------------------");
+                Juego_Principal.mostrarLinea();
                 
                 
                 break;        
@@ -289,26 +328,70 @@ public class  SecondaryController {
          int lado2 = ficha.getLado2();
          ImageView imageview1 = new ImageView(imagenes.getCara(imagenes.num_a_indice(lado1)));
          ImageView imageview2 = new ImageView(imagenes.getCara(imagenes.num_a_indice(lado2)));
-         
-         if(ladotocanteficha == 0){
          imageview1.setRotate(270);
          imageview1.setFitWidth(90);
          imageview2.setRotate(90);
          imageview2.setFitWidth(90);
+         
+         if(ladotocanteficha == 0){
          Ficha_mazo.getChildren().addAll(imageview1,imageview2);
          Tablero.add(Ficha_mazo);
          }
          else{
-             imageview1.setRotate(90);
-             imageview1.setFitWidth(90);
-             imageview2.setRotate(270);
-             imageview2.setFitWidth(90);
-         Ficha_mazo.getChildren().addAll(imageview2,imageview1);
+         Ficha_mazo.getChildren().addAll(imageview1,imageview2);
          Tablero.add(0,Ficha_mazo);
          }
          Tablero_Juego.getChildren().clear();
          Tablero_Juego.getChildren().addAll(Tablero);
-        
+         Tablero_Juego.requestLayout();
+         Panel_scroll.autosize();
+         Fichas_restantes.setText(Integer.toString(Juego_Principal.getJugadores().get(0).getMano().size())+"/6");
+         N_Turno++;
+         Ronda();
+         
     }
     
+    private void Ronda(){
+        if (N_Turno % 2 == 0){
+        Menu_player.setDisable(false);
+        }
+        else{
+        Menu_player.setDisable(true);
+        int ladotocante_pc = 1;
+        Ficha ficha_pc = Juego_Principal.AgregarPC_Inicio();
+        
+        PauseTransition delay = new PauseTransition(Duration.seconds(2));
+        
+        if (ficha_pc == null){
+            ficha_pc = Juego_Principal.AgregarPC_Final();
+            if(ficha_pc == null){
+                ficha_pc = Juego_Principal.AgregarPC_Comodin();
+                if(ficha_pc == null){
+                  App.close();
+                }
+                else{
+                    System.out.println("LA PC USA COMODIN!");
+                    if(((FichaComodin) ficha_pc).vaInicio){
+                        ladotocante_pc = 0;
+                    }
+                }
+            }
+            else{
+            ladotocante_pc = 0;}
+        }
+        else{
+            ladotocante_pc = 1;
+        }
+        final Ficha hola = ficha_pc;
+        final int orwua = ladotocante_pc;
+        delay.setOnFinished(event -> {
+            
+        Juego_Principal.getJugadores().get(1).getMano().remove(hola);
+        Generar_ficha_juego(hola,orwua);
+        });
+        
+        delay.play();
+        
+        }
+    }
 }

@@ -40,10 +40,19 @@ public class JuegoFX {
     
     public int AgregarFicha(Ficha ficha){
         if(Tablero_Juego.isEmpty()){
+            if (!ficha.esComodin() || (ficha.getLado1()!= -1 && ficha.getLado2() != -1)){
             Tablero_Juego.add(ficha);
             return 1;
+            }
+            else{
+            return -1;
+            }
         }
         else{
+            if(ficha.esComodin() && ficha.getLado1() != -1 && ficha.getLado2() != -1){
+                return 3;
+            }
+            else{
             if(ficha.getLado1() == this.Valor_Final()){
                 Tablero_Juego.add(ficha);
                 return 1;
@@ -52,6 +61,8 @@ public class JuegoFX {
                 Tablero_Juego.add(0,ficha);
                 return 0;
             }
+            }
+            
         }
      return -1;
     }
@@ -69,7 +80,70 @@ public class JuegoFX {
         }
         return lado;
     }
+    public void AgregarFicha(Ficha ficha, boolean vaInicio){
+        if(vaInicio){
+            Tablero_Juego.add(0,ficha);
+        }
+        else{
+            Tablero_Juego.add(ficha);    
+        }
+        
+    }
+    public void mostrarLinea(){
+        for(int i = 0; i < Tablero_Juego.size();i++){
+            System.out.print(Tablero_Juego.get(i).toString());
+            if(i < Tablero_Juego.size() -1){
+                System.out.print(" - ");
+            }
+
+        }
+    }
     
+    public Ficha AgregarPC_Inicio(){
+        for(Ficha ficha: Jugadores.get(1).getMano()){
+            if(ficha.lado2 == this.Valor_Inicial()){
+                Tablero_Juego.add(0,ficha);
+                return ficha;
+                
+              
+            }
+        }
+        return null;
+    }
+    public Ficha AgregarPC_Final(){
+        for(Ficha ficha: Jugadores.get(1).getMano()){
+            if(ficha.lado1 == this.Valor_Final()){
+                Tablero_Juego.add(ficha);
+                return ficha;
+                
+              
+            }
+        }
+        return null;
+    }
+    public Ficha AgregarPC_Comodin(){
+        for(Ficha ficha: Jugadores.get(1).getMano()){
+            if(ficha.esComodin()){
+                FichaComodin comodin_pc = (FichaComodin) ficha;
+                int num2 = (int) (Math.floor(Math.random() * 6) + 1);
+                switch((int) (Math.floor(Math.random() * 2) + 1)){
+                    case 1:
+                        comodin_pc.setLado1(num2);
+                        comodin_pc.setLado2(this.Valor_Inicial());
+                        comodin_pc.vaInicio = true;
+                    case 2:
+                        comodin_pc.setLado2(num2);
+                        comodin_pc.setLado1(this.Valor_Final());
+                        comodin_pc.vaInicio = false;
+                    
+            }
+                return comodin_pc;
+            }
+                
+              
+            }
+        return null;
+    }
     
     
 }

@@ -9,7 +9,10 @@ package ec.edu.espol.proyectopoofx;
  * @author Deeje
  */
 public class FichaComodin extends Ficha
+        
+    
 {
+    public boolean vaInicio = false;
     public FichaComodin()
     {
         super(-1, -1);
