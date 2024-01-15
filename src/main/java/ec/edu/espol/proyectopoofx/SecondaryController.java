@@ -46,6 +46,8 @@ public class  SecondaryController {
     private GridPane Menu_player;
     @FXML
     private BorderPane Panel_padre;
+    @FXML
+    private Button Boton_rendirse;
     
     public void initialize(){
         N_Turno = 0;
@@ -63,9 +65,6 @@ public class  SecondaryController {
         for(Ficha fichita: Fichas_Jugador_1){
             System.out.println(fichita);
             fichas_VBOX.add(Generar_ficha(fichita));
-        }
-        for(VBox vbox: fichas_VBOX){
-    //Mazo_Jugador.getChildren().add(vbox);
         }
     }
 
@@ -89,10 +88,7 @@ public class  SecondaryController {
             ficha_seleccionada = n_ficha;
             seleccionada_lado1 = lado1;
             seleccionada_lado2 = lado2;
-            
-            System.out.println(Integer.toString(seleccionada_lado1)+ " " + Integer.toString(seleccionada_lado2));
             n_ficha.setStyle("-fx-border-color: green;\n-fx-border-width: 5;");
-            System.out.println(n_ficha);
          });
         Mazo_Jugador.getChildren().add(n_ficha);
             
@@ -323,7 +319,6 @@ public class  SecondaryController {
     
     private void Generar_ficha_juego(Ficha ficha,int ladotocanteficha){
         HBox Ficha_mazo = new HBox();
-        Ficha_mazo.setSpacing(0);
          int lado1 = ficha.getLado1();
          int lado2 = ficha.getLado2();
          ImageView imageview1 = new ImageView(imagenes.getCara(imagenes.num_a_indice(lado1)));
@@ -372,6 +367,9 @@ public class  SecondaryController {
                 else{
                     System.out.println("LA PC USA COMODIN!");
                     if(((FichaComodin) ficha_pc).vaInicio){
+                        ladotocante_pc = 1;
+                    }
+                    else{
                         ladotocante_pc = 0;
                     }
                 }
@@ -385,13 +383,21 @@ public class  SecondaryController {
         final Ficha hola = ficha_pc;
         final int orwua = ladotocante_pc;
         delay.setOnFinished(event -> {
-            
+        
         Juego_Principal.getJugadores().get(1).getMano().remove(hola);
         Generar_ficha_juego(hola,orwua);
         });
         
         delay.play();
-        
+
         }
     }
+
+    @FXML
+    private void Gallina(ActionEvent event) {
+        App.close();
+    }
+    
+    
+    
 }

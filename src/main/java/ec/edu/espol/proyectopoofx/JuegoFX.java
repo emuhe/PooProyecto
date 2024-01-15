@@ -97,12 +97,14 @@ public class JuegoFX {
             }
 
         }
+        System.out.print("\n");
     }
     
     public Ficha AgregarPC_Inicio(){
         for(Ficha ficha: Jugadores.get(1).getMano()){
             if(ficha.lado2 == this.Valor_Inicial()){
                 Tablero_Juego.add(0,ficha);
+                System.out.println("Agregado al Inicio!");
                 return ficha;
                 
               
@@ -114,7 +116,9 @@ public class JuegoFX {
         for(Ficha ficha: Jugadores.get(1).getMano()){
             if(ficha.lado1 == this.Valor_Final()){
                 Tablero_Juego.add(ficha);
+                System.out.println("Agregado al Final!");
                 return ficha;
+                
                 
               
             }
@@ -131,13 +135,16 @@ public class JuegoFX {
                         comodin_pc.setLado1(num2);
                         comodin_pc.setLado2(this.Valor_Inicial());
                         comodin_pc.vaInicio = true;
+                        Tablero_Juego.add(0,comodin_pc);
                     case 2:
                         comodin_pc.setLado2(num2);
                         comodin_pc.setLado1(this.Valor_Final());
                         comodin_pc.vaInicio = false;
+                        Tablero_Juego.add(comodin_pc);
                     
-            }
-                return comodin_pc;
+            }   
+                
+                return ficha;
             }
                 
               
