@@ -61,8 +61,8 @@ public class  SecondaryController {
          VBox n_ficha = new VBox();
          int lado1 = ficha.getLado1();
          int lado2 = ficha.getLado2();
-         ImageView imageview1 = new ImageView(imagenes.getCara(lado1));
-         ImageView imageview2 = new ImageView(imagenes.getCara(lado2));
+         ImageView imageview1 = new ImageView(imagenes.getCara(imagenes.num_a_indice(lado1)));
+         ImageView imageview2 = new ImageView(imagenes.getCara(imagenes.num_a_indice(lado2)));
          imageview2.setRotate(180);
          
          n_ficha.setId("#Ficha"+Integer.toString(Mazo_Jugador_Sub.size()));
@@ -124,7 +124,7 @@ public class  SecondaryController {
                         izquierda_op1.setOnAction((ActionEvent a) -> {
                             final int indice_actual = imagenes.indice_actual(op1_image.getImage());
                             if (indice_actual != 0){
-                            op1_image.setImage(imagenes.getCara(indice_actual - 1 ));
+                            op1_image.setImage(imagenes.getCara(indice_actual-1));
                             }
                             
                         });
@@ -170,8 +170,13 @@ public class  SecondaryController {
                         confirmado.setOnAction((ActionEvent a) -> {
                             final int mod_lado1 = imagenes.indice_actual(op1_image.getImage());
                             final int mod_lado2 = imagenes.indice_actual(op2_image.getImage());
+                            
+                            FichaComodin Juan_Pedro =(FichaComodin) Juego_Principal.getJugadores().get(0).getFicha(Juego_Principal.getJugadores().get(0).getMano().size()-1);
+                            Juan_Pedro.setLado1(mod_lado1);
+                            Juan_Pedro.setLado2(mod_lado2);
+                            
                             dialog.close();
-                        AceptarCambiosComodin(mod_lado1,mod_lado2);
+                            TirarFicha(new ActionEvent());
                         });
                         
                         
@@ -185,11 +190,16 @@ public class  SecondaryController {
                 
                 
 
-                if(false){
+                else{
+                
+                if(Juego_Principal.AgregarFicha(ficha_seleccionada)){
+                
                 Mazo_Jugador.getChildren().remove(hola);
                 Mazo_Jugador_Sub.remove(hola);
+                System.out.println("Eliminado");
+                Juego_Principal.getJugadores().get(0).getMano().remove(ficha_seleccionada);
                 }
-                System.out.println("A");
+                }
                 
                 break;        
                         
@@ -198,24 +208,5 @@ public class  SecondaryController {
         }
     }
     
-    public void AceptarCambiosComodin(int lado1,int lado2){
-        
-        System.out.println("FUNCIONA");
-        System.out.println(imagenes.indice_a_num(lado1));
-        System.out.println(imagenes.indice_a_num(lado2));
-        
-        try{
-            FichaComodin Juan_Pedro =(FichaComodin) Juego_Principal.getJugadores().get(0).getFicha(Juego_Principal.getJugadores().get(0).getMano().size());
-            Juan_Pedro.setLado1(imagenes.indice_a_num(lado1));
-            Juan_Pedro.setLado1(imagenes.indice_a_num(lado2));
-            
-        
-        }
-        catch(Exception e){
-        System.out.println("Hola bb");}
-        TirarFicha( new ActionEvent());
-        
-        
-    }
     
 }

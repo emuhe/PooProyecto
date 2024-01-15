@@ -33,6 +33,7 @@ public class ImagenesDomino {
         if(indice == -1){
             indice = 6;
         }
+        
         return Cara.get(indice);
     }
     public int indice_actual(Image imagen_actual){
@@ -45,6 +46,16 @@ public class ImagenesDomino {
         indice += 1;
         return indice;
     }
+    
+    public int num_a_indice(int num){
+        if(num == -1 )
+            return 6;
+        else{
+        return num-1;
+        }
+    }
+    
+        
     
 }
 
