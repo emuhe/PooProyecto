@@ -53,6 +53,8 @@ public class PrimaryController {
         File file = new File("src/Domino_Icon.jpeg");
         Image image = new Image(file.toURI().toString());
         Imagen_principal_logo.setImage(image);
+        Imagen_principal_logo.setFitHeight(256);
+        Imagen_principal_logo.setFitWidth(256);
     }
 
     private void actualizara(MouseEvent event) {
