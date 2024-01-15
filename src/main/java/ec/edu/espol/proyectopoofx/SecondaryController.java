@@ -7,7 +7,6 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Cursor;
-import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -36,9 +35,10 @@ public class  SecondaryController {
     private VBox ficha_seleccionada = null;
     private Button Tirar;
     JuegoFX Juego_Principal;
+    private ImagenesDomino imagenes;
     
     public void initialize(){
-        System.out.println("a");
+        imagenes = new ImagenesDomino();
         Mazo_Jugador_Sub = new ArrayList<>();
         Juego_Principal = new JuegoFX();
         Generar_mazo_player1(Juego_Principal.getJugadores().get(0).getMano());
@@ -50,7 +50,6 @@ public class  SecondaryController {
             System.out.println(fichita);
             fichas_VBOX.add(Generar_ficha(fichita));
         }
-        System.out.println("Fichas generadas");
         for(VBox vbox: fichas_VBOX){
     //Mazo_Jugador.getChildren().add(vbox);
         }
@@ -61,18 +60,13 @@ public class  SecondaryController {
          VBox n_ficha = new VBox();
          int lado1 = ficha.getLado1();
          int lado2 = ficha.getLado2();
-         File file1 = new File("src/Piezas_Domino/N_"+Integer.toString(lado1)+".png");
-         Image imageL1 = new Image(file1.toURI().toString());
-         ImageView imageview1 = new ImageView(imageL1);
-         File file2 = new File("src/Piezas_Domino/N_"+Integer.toString(lado2)+".png");
-         Image imageL2 = new Image(file2.toURI().toString());
-         ImageView imageview2 = new ImageView(imageL2);
+         ImageView imageview1 = new ImageView(imagenes.getCara(lado1));
+         ImageView imageview2 = new ImageView(imagenes.getCara(lado2));
          imageview2.setRotate(180);
          
          n_ficha.setId("#Ficha"+Integer.toString(Mazo_Jugador_Sub.size()));
          Mazo_Jugador_Sub.add(n_ficha);
          n_ficha.getChildren().addAll(imageview1,imageview2);
-        System.out.println("Ficha creada!");
         n_ficha.setCursor(Cursor.HAND);
         n_ficha.setOnMouseClicked((MouseEvent t) -> {
             Mazo_Jugador.getChildren().forEach(child -> {
@@ -113,11 +107,57 @@ public class  SecondaryController {
                         Scene escena = new Scene(panel);
                         panel.add(new Label("Seleccione el Lado 1"), 0,0);
                         panel.add(new Label("Seleccione el Lado 2"),1,0);
-                        HBox op1 = new HBox();
-                        File opcion1_file = new File("src/Piezas_Domino/N_"+Integer.toString(1)+".png");
-                        Image opcion1_imagen = new Image(opcion1_file.toURI().toString());
-                        ImageView imageview1 = new ImageView(opcion1_imagen);
                         
+                        //CREANDO PARA ESCOGER DEL PRIMER LADO DE LA FICHA
+                        
+                        HBox op1 = new HBox();
+                        int indice_imagen_1 = 0;
+                        ImageView op1_image = new ImageView(imagenes.getCara(indice_imagen_1));
+                        Button izquierda_op1 = new Button();
+                        Button derecha_op1 = new Button();
+                        op1.getChildren().addAll(izquierda_op1,op1_image,derecha_op1);
+                        izquierda_op1.setOnAction((ActionEvent a) -> {
+                            final int indice_actual = imagenes.indice_actual(op1_image.getImage());
+                            if (indice_actual != 0){
+                            op1_image.setImage(imagenes.getCara(indice_actual - 1 ));
+                            }
+                            
+                        });
+                        
+                        derecha_op1.setOnAction((ActionEvent a) -> {
+                            final int indice_actual = imagenes.indice_actual(op1_image.getImage());
+                            if (indice_actual != 5){
+                            op1_image.setImage(imagenes.getCara(indice_actual + 1 ));
+                            }
+                            
+                        });
+                                                
+                        //CREANDO PARA ESCOGER DEL SEGUNDO  LADO DE LA FICHA
+                        
+                        HBox op2 = new HBox();
+                        int indice_imagen_2 = 0;
+                        ImageView op2_image = new ImageView(imagenes.getCara(indice_imagen_2));
+                        Button izquierda_op2 = new Button();
+                        Button derecha_op2 = new Button();
+                        op2.getChildren().addAll(izquierda_op2,op2_image,derecha_op2);
+                        izquierda_op2.setOnAction((ActionEvent a) -> {
+                            final int indice_actual = imagenes.indice_actual(op2_image.getImage());
+                            if (indice_actual != 0){
+                            op2_image.setImage(imagenes.getCara(indice_actual - 1 ));
+                            }
+                            
+                        });
+                        
+                        derecha_op2.setOnAction((ActionEvent a) -> {
+                            final int indice_actual = imagenes.indice_actual(op2_image.getImage());
+                            if (indice_actual != 5){
+                            op2_image.setImage(imagenes.getCara(indice_actual + 1 ));
+                            }
+                            
+                        });
+                        
+                        panel.add(op1,0,1);
+                        panel.add(op2,1,1);
                         
                         dialog.setAlwaysOnTop(true);
                         dialog.setScene(escena);

@@ -4,6 +4,7 @@ ec\edu\espol\proyectopoofx\Utilitaria.class
 ec\edu\espol\proyectopoofx\Resultado.class
 ec\edu\espol\proyectopoofx\Juego.class
 module-info.class
+ec\edu\espol\proyectopoofx\ImagenesDomino.class
 ec\edu\espol\proyectopoofx\SecondaryController.class
 ec\edu\espol\proyectopoofx\PrimaryController.class
 ec\edu\espol\proyectopoofx\Ficha.class
