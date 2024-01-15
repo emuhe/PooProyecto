@@ -24,10 +24,10 @@ public class JuegoFX {
         Tablero_Juego = new ArrayList<Ficha>();
         
     }
-    private int Valor_Inicial(){
+    public int Valor_Inicial(){
     return Tablero_Juego.get(0).lado1; 
             }
-    private int Valor_Final(){
+    public int Valor_Final(){
         return Tablero_Juego.get(Tablero_Juego.size()-1).lado2;
     }
     public ArrayList<Ficha> getTablero(){
@@ -38,21 +38,34 @@ public class JuegoFX {
         return Jugadores;
     }
     
-    public boolean AgregarFicha(Ficha ficha){
+    public int AgregarFicha(Ficha ficha){
         if(Tablero_Juego.isEmpty()){
             Tablero_Juego.add(ficha);
-            return true;
+            return 1;
         }
-        
-        else if(ficha.getLado1() == this.Valor_Final()){
-            Tablero_Juego.add(ficha);
-            return true;
+        else{
+            if(ficha.getLado1() == this.Valor_Final()){
+                Tablero_Juego.add(ficha);
+                return 1;
+            }
+            else if (ficha.getLado2() == this.Valor_Inicial()){
+                Tablero_Juego.add(0,ficha);
+                return 0;
+            }
         }
-        else if (ficha.getLado2() == this.Valor_Inicial()){
-            Tablero_Juego.add(0,ficha);
-            return true;
+     return -1;
+    }
+    public int AgregarFicha(Ficha ficha, int lado){
+        switch(lado){
+            case 0:
+                Tablero_Juego.add(0,ficha);
+                break;
+                
+            case 1:
+                Tablero_Juego.add(ficha);
+                break;
         }
-     return false;
+        return lado;
     }
     
     

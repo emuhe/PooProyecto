@@ -1,18 +1,14 @@
 package ec.edu.espol.proyectopoofx;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Set;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Cursor;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextInputDialog;
+import javafx.scene.control.RadioButton;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -20,8 +16,6 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
@@ -98,8 +92,8 @@ public class  SecondaryController {
             if (hola.equals(ficha_seleccionada)){
                 int indice = Mazo_Jugador_Sub.indexOf(hola);
                 Ficha ficha_seleccionada = Juego_Principal.getJugadores().get(0).getMano().get(indice);
-                //CASO ESPECIFICO CUANDO EL JUGADOR INICIA CON COMODIN
                 if(ficha_seleccionada.esComodin() && ficha_seleccionada.getLado1() == -1 && ficha_seleccionada.getLado2() == -1){
+                    //CASO ESPECIFICO CUANDO EL JUGADOR INICIA CON COMODIN
                     if(Juego_Principal.getTablero().isEmpty()){
                         Stage dialog = new Stage();
                         dialog.initStyle(StageStyle.UTILITY);
@@ -184,22 +178,100 @@ public class  SecondaryController {
                         dialog.setScene(escena);
                         dialog.show();
                     }
-                
-                }
-                
-                
+                    //CASO CUANDO EL JUGADOR TIRA EL COMODIN
+                    else{
+                        Stage dialog = new Stage();
+                        dialog.initStyle(StageStyle.UTILITY);
+                        GridPane panel = new GridPane();
+                        panel.setHgap(10);
+                        panel.setVgap(10);
+                        panel.setMinWidth(200);
+                        panel.setMinHeight(200);
+                        Scene escena = new Scene(panel);
+                        panel.add(new Label("Seleccione el Lado libre"), 0,0);
+                        
+                        HBox op1 = new HBox();
+                        int indice_imagen_1 = 0;
+                        ImageView op1_image = new ImageView(imagenes.getCara(indice_imagen_1));
+                        Button izquierda_op1 = new Button("<");
+                        Button derecha_op1 = new Button(">");
+                        op1.getChildren().addAll(izquierda_op1,op1_image,derecha_op1);
+                        izquierda_op1.setOnAction((ActionEvent a) -> {
+                            final int indice_actual = imagenes.indice_actual(op1_image.getImage());
+                            if (indice_actual != 0){
+                            op1_image.setImage(imagenes.getCara(indice_actual-1));
+                            }
+                            
+                        });
+                        
+                        derecha_op1.setOnAction((ActionEvent a) -> {
+                            final int indice_actual = imagenes.indice_actual(op1_image.getImage());
+                            if (indice_actual != 5){
+                            op1_image.setImage(imagenes.getCara(indice_actual + 1 ));
+                            }
+                            
+                        });   
+                        
+                        HBox escoger_lado = new HBox();
+                        ToggleGroup tg = new ToggleGroup();
+                        RadioButton izquierda = new RadioButton("Izquierda");
+                        RadioButton derecha = new RadioButton("Derecha");
+                        izquierda.setToggleGroup(tg);
+                        derecha.setToggleGroup(tg);
+                        izquierda.setSelected(true);
+                        escoger_lado.getChildren().addAll(izquierda,derecha);
+                        panel.add(escoger_lado,0,2);
+                        panel.add(op1,0,1);
+                        Button confirmado = new Button();
+                        confirmado.setText("Aceptar");
+                        confirmado.setOnAction((ActionEvent a) -> {
+                            final int mod_lado1 = imagenes.indice_actual(op1_image.getImage());
+                            FichaComodin Juan_Pedro =(FichaComodin) Juego_Principal.getJugadores().get(0).getFicha(Juego_Principal.getJugadores().get(0).getMano().size()-1);
 
-                else{
-                
-                    if(Juego_Principal.AgregarFicha(ficha_seleccionada))
-                    {
-                    Generar_ficha_juego(ficha_seleccionada);
-                    Mazo_Jugador.getChildren().remove(hola);
-                    Mazo_Jugador_Sub.remove(hola);
-                    System.out.println("Eliminado");
-                    Juego_Principal.getJugadores().get(0).getMano().remove(ficha_seleccionada);
+                            switch(((RadioButton) tg.getSelectedToggle()).getText()){
+                                case "Izquierda":
+                                    Juan_Pedro.setLado1(mod_lado1);
+                                    Juan_Pedro.setLado2(Juego_Principal.Valor_Inicial());
+                                    break;
+                                case "Derecha":
+                                    Juan_Pedro.setLado2(mod_lado1);
+                                    Juan_Pedro.setLado1(Juego_Principal.Valor_Final());
+                                    break;
+                            }
+                            dialog.close();
+                            TirarFicha(new ActionEvent());
+                        });
+                        panel.add(confirmado,0,3);
+                        dialog.setAlwaysOnTop(true);
+                        dialog.setScene(escena);
+                        dialog.show();
+                        
                     }
                 }
+
+                
+                
+                switch(Juego_Principal.AgregarFicha(ficha_seleccionada))
+                {
+                    case 1:
+                        Generar_ficha_juego(ficha_seleccionada,0);
+                        Mazo_Jugador.getChildren().remove(hola);
+                        Mazo_Jugador_Sub.remove(hola);
+                        Juego_Principal.getJugadores().get(0).getMano().remove(ficha_seleccionada);
+                        break;
+
+                    case 0:
+                        Generar_ficha_juego(ficha_seleccionada,1);
+                        Mazo_Jugador.getChildren().remove(hola);
+                        Mazo_Jugador_Sub.remove(hola);
+                        Juego_Principal.getJugadores().get(0).getMano().remove(ficha_seleccionada);
+                        break;
+
+                    case -1:
+                        System.out.println("Nada");
+                        break;
+                }
+                
                 
                 break;        
                         
@@ -208,19 +280,28 @@ public class  SecondaryController {
         }
     }
     
-    private void Generar_ficha_juego(Ficha ficha){
+    private void Generar_ficha_juego(Ficha ficha,int ladotocanteficha){
         HBox Ficha_mazo = new HBox();
         Ficha_mazo.setSpacing(0);
-
          int lado1 = ficha.getLado1();
          int lado2 = ficha.getLado2();
          ImageView imageview1 = new ImageView(imagenes.getCara(imagenes.num_a_indice(lado1)));
+         ImageView imageview2 = new ImageView(imagenes.getCara(imagenes.num_a_indice(lado2)));
+         
+         if(ladotocanteficha == 0){
          imageview1.setRotate(270);
          imageview1.setFitWidth(90);
-         ImageView imageview2 = new ImageView(imagenes.getCara(imagenes.num_a_indice(lado2)));
          imageview2.setRotate(90);
          imageview2.setFitWidth(90);
          Ficha_mazo.getChildren().addAll(imageview1,imageview2);
+         }
+         else{
+             imageview1.setRotate(90);
+             imageview1.setFitWidth(90);
+             imageview2.setRotate(270);
+             imageview2.setFitWidth(90);
+         Ficha_mazo.getChildren().addAll(imageview2,imageview1);
+         }
          Tablero_Juego.getChildren().add(Ficha_mazo);
         
     }
