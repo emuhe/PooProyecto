@@ -6,4 +6,5 @@ module-info.class
 ec\edu\espol\proyectopoofx\SecondaryController.class
 ec\edu\espol\proyectopoofx\PrimaryController.class
 ec\edu\espol\proyectopoofx\Ficha.class
+ec\edu\espol\proyectopoofx\JuegoFX.class
 ec\edu\espol\proyectopoofx\Jugador.class

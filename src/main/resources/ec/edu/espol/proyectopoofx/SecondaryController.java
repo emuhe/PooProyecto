@@ -6,7 +6,9 @@ package ec.edu.espol.proyectopoofx;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.layout.FlowPane;
 
 /**
  * FXML Controller class
@@ -14,6 +16,9 @@ import javafx.fxml.Initializable;
  * @author Deeje
  */
 public class SecondaryController implements Initializable {
+
+    @FXML
+    private FlowPane Mazo_Jugador;
 
     /**
      * Initializes the controller class.

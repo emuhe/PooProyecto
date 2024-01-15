@@ -20,7 +20,7 @@ public class Juego {
     }
     public void agregarJugador(String nombre){
 
-        Jugador nuevoJugador = new Jugador(nombre,Utilitaria.crearManoJugador());
+        Jugador nuevoJugador = new Jugador(nombre,Utilitaria.crearManoJugador(),true);
         jugadores.add(nuevoJugador);
     }
     public int obtenerValorInicio(){

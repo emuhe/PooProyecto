@@ -17,6 +17,7 @@ public class JuegoFX {
     public static boolean tipoj2 = false;
     private ArrayList<Jugador> Jugadores;
     public JuegoFX(){
+        System.out.println("Creado");
         Jugadores = new ArrayList<Jugador>();
         Jugadores.add(new Jugador(NombreJ1,Utilitaria.crearManoJugador(),true));
         Jugadores.add(new Jugador(NombreJ2,Utilitaria.crearManoJugador(),tipoj2));
