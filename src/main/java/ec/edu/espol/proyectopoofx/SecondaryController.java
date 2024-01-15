@@ -3,6 +3,7 @@ package ec.edu.espol.proyectopoofx;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Set;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -93,17 +94,21 @@ public class  SecondaryController {
     @FXML
     private void TirarFicha(ActionEvent event) {
         
-        System.out.println("Agregando Ficha");
         System.out.println(Integer.toString(seleccionada_lado1)+ " " + Integer.toString(seleccionada_lado2));
         for(VBox hola: Mazo_Jugador_Sub){
             if (hola.equals(ficha_seleccionada)){
                 int indice = Mazo_Jugador_Sub.indexOf(hola);
                 Ficha ficha_seleccionada = Juego_Principal.getJugadores().get(0).getMano().get(indice);
-                if(ficha_seleccionada.esComodin()){
+                //CASO ESPECIFICO CUANDO EL JUGADOR INICIA CON COMODIN
+                if(ficha_seleccionada.esComodin() && ficha_seleccionada.getLado1() == -1 && ficha_seleccionada.getLado2() == -1){
                     if(Juego_Principal.getTablero().isEmpty()){
                         Stage dialog = new Stage();
                         dialog.initStyle(StageStyle.UTILITY);
                         GridPane panel = new GridPane();
+                        panel.setHgap(10);
+                        panel.setVgap(10);
+                        panel.setMinWidth(300);
+                        panel.setMinHeight(200);
                         Scene escena = new Scene(panel);
                         panel.add(new Label("Seleccione el Lado 1"), 0,0);
                         panel.add(new Label("Seleccione el Lado 2"),1,0);
@@ -113,8 +118,8 @@ public class  SecondaryController {
                         HBox op1 = new HBox();
                         int indice_imagen_1 = 0;
                         ImageView op1_image = new ImageView(imagenes.getCara(indice_imagen_1));
-                        Button izquierda_op1 = new Button();
-                        Button derecha_op1 = new Button();
+                        Button izquierda_op1 = new Button("<");
+                        Button derecha_op1 = new Button(">");
                         op1.getChildren().addAll(izquierda_op1,op1_image,derecha_op1);
                         izquierda_op1.setOnAction((ActionEvent a) -> {
                             final int indice_actual = imagenes.indice_actual(op1_image.getImage());
@@ -137,8 +142,8 @@ public class  SecondaryController {
                         HBox op2 = new HBox();
                         int indice_imagen_2 = 0;
                         ImageView op2_image = new ImageView(imagenes.getCara(indice_imagen_2));
-                        Button izquierda_op2 = new Button();
-                        Button derecha_op2 = new Button();
+                        Button izquierda_op2 = new Button("<");
+                        Button derecha_op2 = new Button(">");
                         op2.getChildren().addAll(izquierda_op2,op2_image,derecha_op2);
                         izquierda_op2.setOnAction((ActionEvent a) -> {
                             final int indice_actual = imagenes.indice_actual(op2_image.getImage());
@@ -159,6 +164,18 @@ public class  SecondaryController {
                         panel.add(op1,0,1);
                         panel.add(op2,1,1);
                         
+                        Button confirmado = new Button();
+                        confirmado.setText("Aceptar");
+                        
+                        confirmado.setOnAction((ActionEvent a) -> {
+                            final int mod_lado1 = imagenes.indice_actual(op1_image.getImage());
+                            final int mod_lado2 = imagenes.indice_actual(op2_image.getImage());
+                            dialog.close();
+                        AceptarCambiosComodin(mod_lado1,mod_lado2);
+                        });
+                        
+                        
+                        panel.add(confirmado,1,2);
                         dialog.setAlwaysOnTop(true);
                         dialog.setScene(escena);
                         dialog.show();
@@ -181,5 +198,24 @@ public class  SecondaryController {
         }
     }
     
+    public void AceptarCambiosComodin(int lado1,int lado2){
+        
+        System.out.println("FUNCIONA");
+        System.out.println(imagenes.indice_a_num(lado1));
+        System.out.println(imagenes.indice_a_num(lado2));
+        
+        try{
+            FichaComodin Juan_Pedro =(FichaComodin) Juego_Principal.getJugadores().get(0).getFicha(Juego_Principal.getJugadores().get(0).getMano().size());
+            Juan_Pedro.setLado1(imagenes.indice_a_num(lado1));
+            Juan_Pedro.setLado1(imagenes.indice_a_num(lado2));
+            
+        
+        }
+        catch(Exception e){
+        System.out.println("Hola bb");}
+        TirarFicha( new ActionEvent());
+        
+        
+    }
     
 }

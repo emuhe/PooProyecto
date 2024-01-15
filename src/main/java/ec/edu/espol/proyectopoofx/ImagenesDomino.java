@@ -29,10 +29,7 @@ public class ImagenesDomino {
         System.out.println(Cara.size());
     }
     
-    public Image getCara(int indice){
-        
-        System.out.println(Integer.toString(indice) + " Hecho");
-        
+    public Image getCara(int indice){        
         if(indice == -1){
             indice = 6;
         }
@@ -40,6 +37,13 @@ public class ImagenesDomino {
     }
     public int indice_actual(Image imagen_actual){
         return Cara.indexOf(imagen_actual);
+    }
+    
+    //??????????
+    //Perdon mister por esto :(
+    public int indice_a_num(int indice){
+        indice += 1;
+        return indice;
     }
     
 }
