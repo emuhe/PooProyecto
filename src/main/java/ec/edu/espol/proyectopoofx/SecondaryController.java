@@ -30,13 +30,15 @@ public class  SecondaryController {
     @FXML
     private FlowPane Mazo_Jugador;
     private ArrayList<VBox> Mazo_Jugador_Sub;
-    @FXML
     private int seleccionada_lado1 = 0;
     private int seleccionada_lado2 = 0;
     private VBox ficha_seleccionada = null;
+    @FXML
     private Button Tirar;
     JuegoFX Juego_Principal;
     private ImagenesDomino imagenes;
+    @FXML
+    private FlowPane Tablero_Juego;
     
     public void initialize(){
         imagenes = new ImagenesDomino();
@@ -87,9 +89,6 @@ public class  SecondaryController {
          
     }
 
-    @FXML
-    private void ClickenFlowpane(MouseEvent event) {
-    }
 
     @FXML
     private void TirarFicha(ActionEvent event) {
@@ -192,13 +191,14 @@ public class  SecondaryController {
 
                 else{
                 
-                if(Juego_Principal.AgregarFicha(ficha_seleccionada)){
-                
-                Mazo_Jugador.getChildren().remove(hola);
-                Mazo_Jugador_Sub.remove(hola);
-                System.out.println("Eliminado");
-                Juego_Principal.getJugadores().get(0).getMano().remove(ficha_seleccionada);
-                }
+                    if(Juego_Principal.AgregarFicha(ficha_seleccionada))
+                    {
+                    Generar_ficha_juego(ficha_seleccionada);
+                    Mazo_Jugador.getChildren().remove(hola);
+                    Mazo_Jugador_Sub.remove(hola);
+                    System.out.println("Eliminado");
+                    Juego_Principal.getJugadores().get(0).getMano().remove(ficha_seleccionada);
+                    }
                 }
                 
                 break;        
@@ -208,5 +208,21 @@ public class  SecondaryController {
         }
     }
     
+    private void Generar_ficha_juego(Ficha ficha){
+        HBox Ficha_mazo = new HBox();
+        Ficha_mazo.setSpacing(0);
+
+         int lado1 = ficha.getLado1();
+         int lado2 = ficha.getLado2();
+         ImageView imageview1 = new ImageView(imagenes.getCara(imagenes.num_a_indice(lado1)));
+         imageview1.setRotate(270);
+         imageview1.setFitWidth(90);
+         ImageView imageview2 = new ImageView(imagenes.getCara(imagenes.num_a_indice(lado2)));
+         imageview2.setRotate(90);
+         imageview2.setFitWidth(90);
+         Ficha_mazo.getChildren().addAll(imageview1,imageview2);
+         Tablero_Juego.getChildren().add(Ficha_mazo);
+        
+    }
     
 }

@@ -18,7 +18,7 @@
       <FlowPane prefHeight="187.0" prefWidth="900.0" BorderPane.alignment="CENTER" />
    </top>
    <center>
-      <FlowPane prefHeight="528.0" prefWidth="890.0" style="-fx-background-color: cecece; -fx-hgap: 2;" BorderPane.alignment="CENTER">
+      <FlowPane fx:id="Tablero_Juego" alignment="CENTER" prefHeight="528.0" prefWidth="890.0" style="-fx-background-color: cecece; -fx-hgap: 2;" BorderPane.alignment="CENTER">
          <BorderPane.margin>
             <Insets left="5.0" right="5.0" />
          </BorderPane.margin>
@@ -37,7 +37,7 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <FlowPane fx:id="Mazo_Jugador" alignment="CENTER" onMouseClicked="#ClickenFlowpane" prefHeight="201.0" prefWidth="548.0" style="-fx-background-color: c1c1c1; -fx-hgap: 5;" GridPane.columnIndex="1">
+            <FlowPane fx:id="Mazo_Jugador" alignment="CENTER" prefHeight="201.0" prefWidth="548.0" style="-fx-background-color: c1c1c1; -fx-hgap: 5;" GridPane.columnIndex="1">
                <GridPane.margin>
                   <Insets bottom="5.0" top="5.0" />
                </GridPane.margin>
