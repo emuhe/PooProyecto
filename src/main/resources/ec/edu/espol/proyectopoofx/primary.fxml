@@ -31,16 +31,25 @@
    <center>
       <VBox alignment="CENTER" prefHeight="138.0" prefWidth="372.0" BorderPane.alignment="CENTER">
          <children>
-            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="17.0" prefWidth="117.0" text="Ingrese su nombre" />
-            <TextField fx:id="J1_name" alignment="CENTER" onKeyTyped="#actualizartext_box" />
+            <Label alignment="CENTER" contentDisplay="CENTER" text="Ingrese su nombre">
+               <font>
+                  <Font size="24.0" />
+               </font></Label>
+            <TextField fx:id="J1_name" alignment="CENTER" onKeyTyped="#actualizartext_box">
+               <font>
+                  <Font size="18.0" />
+               </font></TextField>
             <ImageView fx:id="Imagen_principal_logo" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                <VBox.margin>
                   <Insets top="10.0" />
                </VBox.margin></ImageView>
-            <CheckBox fx:id="check_namej1" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="34.0" prefWidth="109.0" text="Seguro que no quiere nombre?" textAlignment="CENTER" visible="false" wrapText="true">
+            <CheckBox fx:id="check_namej1" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" text="Seguro que no quiere nombre?" textAlignment="CENTER" visible="false" wrapText="true">
                <VBox.margin>
                   <Insets left="5.0" />
                </VBox.margin>
+               <font>
+                  <Font size="14.0" />
+               </font>
             </CheckBox>
          </children>
       </VBox>
