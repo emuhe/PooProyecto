@@ -30,7 +30,7 @@ public class JuegoFX {
     private int Valor_Final(){
         return Tablero_Juego.get(Tablero_Juego.size()-1).lado2;
     }
-    private ArrayList<Ficha> getTablero(){
+    public ArrayList<Ficha> getTablero(){
     return Tablero_Juego;
     }
 
@@ -41,6 +41,7 @@ public class JuegoFX {
     public boolean AgregarFicha(Ficha ficha){
         if(Tablero_Juego.isEmpty()){
             Tablero_Juego.add(ficha);
+            return true;
         }
         
         else if(ficha.getLado1() == this.Valor_Final()){

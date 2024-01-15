@@ -1,6 +1,7 @@
 ec\edu\espol\proyectopoofx\App.class
 ec\edu\espol\proyectopoofx\FichaComodin.class
 ec\edu\espol\proyectopoofx\Utilitaria.class
+ec\edu\espol\proyectopoofx\Resultado.class
 ec\edu\espol\proyectopoofx\Juego.class
 module-info.class
 ec\edu\espol\proyectopoofx\SecondaryController.class
