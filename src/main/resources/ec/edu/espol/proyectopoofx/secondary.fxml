@@ -103,7 +103,7 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <FlowPane hgap="5.0" prefHeight="182.0" prefWidth="563.0" style="-fx-background-color: c1c1c1;" GridPane.columnIndex="1">
+            <FlowPane alignment="CENTER" hgap="5.0" prefHeight="182.0" prefWidth="563.0" style="-fx-background-color: c1c1c1;" GridPane.columnIndex="1">
                <effect>
                   <InnerShadow />
                </effect>
@@ -113,6 +113,13 @@
                <GridPane.margin>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </GridPane.margin>
+               <children>
+                  <Label fx:id="cantidad_pc" text="6/6 CARTAS" textFill="RED">
+                     <font>
+                        <Font size="81.0" />
+                     </font>
+                  </Label>
+               </children>
             </FlowPane>
          </children>
       </GridPane>

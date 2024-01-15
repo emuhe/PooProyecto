@@ -48,6 +48,8 @@ public class  SecondaryController {
     private BorderPane Panel_padre;
     @FXML
     private Button Boton_rendirse;
+    @FXML
+    private Label cantidad_pc;
     
     public void initialize(){
         N_Turno = 0;
@@ -383,8 +385,8 @@ public class  SecondaryController {
         final Ficha hola = ficha_pc;
         final int orwua = ladotocante_pc;
         delay.setOnFinished(event -> {
-        
         Juego_Principal.getJugadores().get(1).getMano().remove(hola);
+        cantidad_pc.setText(Integer.toString(Juego_Principal.getJugadores().get(1).getMano().size())+"/6 CARTAS");
         Generar_ficha_juego(hola,orwua);
         });
         
