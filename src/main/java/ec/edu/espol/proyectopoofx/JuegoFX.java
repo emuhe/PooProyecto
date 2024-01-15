@@ -58,10 +58,12 @@ public class JuegoFX {
     public int AgregarFicha(Ficha ficha, int lado){
         switch(lado){
             case 0:
+                System.out.println(Tablero_Juego);
                 Tablero_Juego.add(0,ficha);
                 break;
                 
             case 1:
+                System.out.println(Tablero_Juego);
                 Tablero_Juego.add(ficha);
                 break;
         }

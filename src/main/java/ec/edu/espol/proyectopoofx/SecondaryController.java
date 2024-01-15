@@ -23,6 +23,7 @@ public class  SecondaryController {
 
     @FXML
     private FlowPane Mazo_Jugador;
+    private ArrayList<HBox> Tablero;
     private ArrayList<VBox> Mazo_Jugador_Sub;
     private int seleccionada_lado1 = 0;
     private int seleccionada_lado2 = 0;
@@ -35,6 +36,7 @@ public class  SecondaryController {
     private FlowPane Tablero_Juego;
     
     public void initialize(){
+        Tablero = new ArrayList<>();
         imagenes = new ImagenesDomino();
         Mazo_Jugador_Sub = new ArrayList<>();
         Juego_Principal = new JuegoFX();
@@ -230,11 +232,11 @@ public class  SecondaryController {
 
                             switch(((RadioButton) tg.getSelectedToggle()).getText()){
                                 case "Izquierda":
-                                    Juan_Pedro.setLado1(mod_lado1);
+                                    Juan_Pedro.setLado1(imagenes.indice_a_num(mod_lado1));
                                     Juan_Pedro.setLado2(Juego_Principal.Valor_Inicial());
                                     break;
                                 case "Derecha":
-                                    Juan_Pedro.setLado2(mod_lado1);
+                                    Juan_Pedro.setLado2(imagenes.indice_a_num(mod_lado1));
                                     Juan_Pedro.setLado1(Juego_Principal.Valor_Final());
                                     break;
                             }
@@ -294,6 +296,7 @@ public class  SecondaryController {
          imageview2.setRotate(90);
          imageview2.setFitWidth(90);
          Ficha_mazo.getChildren().addAll(imageview1,imageview2);
+         Tablero.add(Ficha_mazo);
          }
          else{
              imageview1.setRotate(90);
@@ -301,8 +304,10 @@ public class  SecondaryController {
              imageview2.setRotate(270);
              imageview2.setFitWidth(90);
          Ficha_mazo.getChildren().addAll(imageview2,imageview1);
+         Tablero.add(0,Ficha_mazo);
          }
-         Tablero_Juego.getChildren().add(Ficha_mazo);
+         Tablero_Juego.getChildren().clear();
+         Tablero_Juego.getChildren().addAll(Tablero);
         
     }
     
